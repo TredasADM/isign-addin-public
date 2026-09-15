@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>iSign İmza</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 16px; color: #1a1a1a; }
+    button { background: #2b6cb0; color: #fff; border: none; border-radius: 4px; padding: 10px 16px; font-size: 14px; cursor: pointer; width: 100%; }
+    button:disabled { background: #a0aec0; cursor: default; }
+    #status { margin-top: 12px; font-size: 13px; color: #4a5568; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <p>Kurumsal imzanızı, imlecin bulunduğu konuma ekler.</p>
+  <button id="insertBtn">İmzamı Ekle</button>
+  <div id="status"></div>
+  <script src="taskpane.js"></script>
+</body>
+</html>
