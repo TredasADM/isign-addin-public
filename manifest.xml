@@ -120,11 +120,11 @@
 
       <WebApplicationInfo>
         <Id>34390303-2f64-4446-b7f2-800ff545a0bb</Id>
-        <Resource>api://34390303-2f64-4446-b7f2-800ff545a0bb/TRD-User_Access</Resource>
+        <Resource>api://34390303-2f64-4446-b7f2-800ff545a0bb</Resource>
         <Scopes>
           <Scope>openid</Scope>
           <Scope>profile</Scope>
-          <Scope>access_as_user</Scope>
+          <Scope>TRD-User_Access</Scope>
         </Scopes>
       </WebApplicationInfo>
     </VersionOverrides>
