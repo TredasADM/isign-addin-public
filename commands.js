@@ -78,4 +78,10 @@ function onNewMessageComposeHandler(event) {
     });
 }
 
-Office.actions.associate('onNewMessageComposeHandler', onNewMessageComposeHandler);
+debugPing('before-associate', `actions-${typeof Office.actions}-associate-${typeof (Office.actions && Office.actions.associate)}`);
+try {
+  Office.actions.associate('onNewMessageComposeHandler', onNewMessageComposeHandler);
+  debugPing('associate-ok');
+} catch (err) {
+  debugPing('associate-fail', (err && err.message) || String(err));
+}
