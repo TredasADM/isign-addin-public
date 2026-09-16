@@ -6,7 +6,7 @@
   xsi:type="MailApp">
 
   <Id>03dbc8f6-5072-4aa2-999d-a93640e2d4dc</Id>
-  <Version>1.0.0.2</Version>
+  <Version>1.0.0.3</Version>
   <ProviderName>iSign</ProviderName>
   <DefaultLocale>tr-TR</DefaultLocale>
   <DisplayName DefaultValue="iSign İmza" />
