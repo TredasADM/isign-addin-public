@@ -11,12 +11,34 @@
 
 const API_BASE_URL = 'https://isign-api.tredas.com.tr';
 
+// GECICI TESHIS -- LaunchEvent'in gercekten tetiklenip tetiklenmedigini ve hangi asamada
+// durdugunu gormek icin. Auth gerektirmeyen ayri bir uc noktaya sinyal gonderir, sonuc
+// dogrulanip sorun cozulunce kaldirilacak.
+function debugPing(stage, detail) {
+  try {
+    fetch(`${API_BASE_URL}/api/addin/debug-ping?stage=${encodeURIComponent(stage)}&detail=${encodeURIComponent(detail || '')}`, { keepalive: true }).catch(() => {});
+  } catch (e) { /* yut */ }
+}
+
+// Script yuklendigi anda (handler cagrilmadan once) -- kisitli runtime'in bu dosyayi
+// gercekten calistirip calistirmadigini gormek icin.
+debugPing('script-loaded', typeof Office !== 'undefined' ? 'office-defined' : 'office-undefined');
+
 async function getSignatureHtml() {
-  const accessToken = await OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true, allowConsentPrompt: true });
+  debugPing('handler-start');
+  let accessToken;
+  try {
+    accessToken = await OfficeRuntime.auth.getAccessToken({ allowSignInPrompt: true, allowConsentPrompt: true });
+    debugPing('token-ok');
+  } catch (err) {
+    debugPing('token-fail', (err && err.message) || String(err));
+    throw err;
+  }
 
   const response = await fetch(`${API_BASE_URL}/api/addin/my-signature`, {
     headers: { Authorization: `Bearer ${accessToken}` }
   });
+  debugPing('fetch-status', String(response.status));
   if (!response.ok) {
     throw new Error(`iSign API ${response.status}`);
   }
@@ -40,14 +62,20 @@ function setSignature(html) {
 
 /** Otomatik: yazma penceresi (yeni/yanıtla/ilet) açıldığında çalışır. */
 function onNewMessageComposeHandler(event) {
+  debugPing('handler-invoked');
   getSignatureHtml()
     .then((html) => {
-      if (html) return setSignature(html);
+      debugPing('signature-received', html ? 'has-html' : 'no-html');
+      if (html) return setSignature(html).then(() => debugPing('set-signature-ok'));
     })
     .catch((err) => {
+      debugPing('handler-catch', (err && err.message) || String(err));
       console.error('iSign otomatik imza ekleme başarısız:', err);
     })
-    .finally(() => event.completed());
+    .finally(() => {
+      debugPing('handler-completed');
+      event.completed();
+    });
 }
 
 Office.actions.associate('onNewMessageComposeHandler', onNewMessageComposeHandler);
