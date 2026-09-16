@@ -120,7 +120,7 @@
 
       <WebApplicationInfo>
         <Id>34390303-2f64-4446-b7f2-800ff545a0bb</Id>
-        <Resource>api://34390303-2f64-4446-b7f2-800ff545a0bb</Resource>
+        <Resource>api://tredasadm.github.io/34390303-2f64-4446-b7f2-800ff545a0bb</Resource>
         <Scopes>
           <Scope>openid</Scope>
           <Scope>profile</Scope>
