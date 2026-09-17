@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
   "manifestVersion": "1.19",
   "id": "03dbc8f6-5072-4aa2-999d-a93640e2d4dc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": {
     "short": "iSign İmza",
     "full": "iSign İmza"
@@ -93,7 +93,8 @@
             {
               "id": "ShowTaskPane",
               "type": "openPage",
-              "view": "homepage"
+              "view": "homepage",
+              "pinnable": true
             }
           ]
         }
