@@ -4,7 +4,6 @@ const API_BASE_URL = 'https://isign-api.tredas.com.tr';
 
 Office.onReady(() => {
   document.getElementById('insertBtn').addEventListener('click', () => insertSignature({ manual: true }));
-  renderDebugTrace();
 
   // Sabitlenebilir (pinnable) görev bölmesi -- LaunchEvent'ten TAMAMEN BAĞIMSIZ bir otomatik
   // ekleme yolu. Kullanıcı bu paneli bir kez sabitlerse (pin), her yeni yazma penceresinde
@@ -25,27 +24,6 @@ Office.onReady(() => {
   // de bir kez deniyoruz.
   insertSignature({ manual: false, silent: true });
 });
-
-/**
- * commands.js'in (otomatik LaunchEvent handler'ı) roamingSettings'e yazdığı izi okuyup
- * gösterir -- bu sayede "en son otomatik çalışma ne zaman, nereye kadar gitti" sorusuna
- * sunucu loglarına bakmadan, her zaman, herkes tarafından cevap verilebiliyor.
- * GECICI TESHIS amaçlı, sorun çözülünce kaldırılacak.
- */
-function renderDebugTrace() {
-  const el = document.getElementById('debugTrace');
-  try {
-    const raw = Office.context.roamingSettings.get('isignDebugTrace');
-    if (!raw) {
-      el.textContent = '(henüz hiç otomatik çalışma izi yok -- LaunchEvent hiç tetiklenmemiş demektir)';
-      return;
-    }
-    const trace = JSON.parse(raw);
-    el.textContent = trace.map((e) => `${e.t}  ${e.s}${e.d ? '  ' + e.d : ''}`).join('\n');
-  } catch (err) {
-    el.textContent = 'İz okunamadı: ' + (err && err.message ? err.message : String(err));
-  }
-}
 
 function setStatus(text) {
   document.getElementById('status').textContent = text;
