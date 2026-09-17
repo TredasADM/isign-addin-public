@@ -1,0 +1,160 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "id": "03dbc8f6-5072-4aa2-999d-a93640e2d4dc",
+  "version": "1.0.0",
+  "name": {
+    "short": "iSign İmza",
+    "full": "iSign İmza"
+  },
+  "description": {
+    "short": "Kurumsal e-posta imzanızı yazarken doğru konuma otomatik ekler.",
+    "full": "Kurumsal e-posta imzanızı yazarken doğru konuma otomatik ekler."
+  },
+  "icons": {
+    "outline": "outline.png",
+    "color": "color.png"
+  },
+  "accentColor": "#0C447C",
+  "developer": {
+    "name": "iSign",
+    "websiteUrl": "https://tredasadm.github.io/isign-addin-public/",
+    "privacyUrl": "https://tredasadm.github.io/isign-addin-public/",
+    "termsOfUseUrl": "https://tredasadm.github.io/isign-addin-public/"
+  },
+  "localizationInfo": {
+    "defaultLanguageTag": "tr-tr"
+  },
+  "webApplicationInfo": {
+    "id": "34390303-2f64-4446-b7f2-800ff545a0bb",
+    "resource": "api://tredasadm.github.io/34390303-2f64-4446-b7f2-800ff545a0bb"
+  },
+  "authorization": {
+    "permissions": {
+      "resourceSpecific": [
+        {
+          "name": "MailboxItem.ReadWrite.User",
+          "type": "Delegated"
+        }
+      ]
+    }
+  },
+  "extensions": [
+    {
+      "requirements": {
+        "scopes": ["mail"],
+        "capabilities": [
+          {
+            "name": "Mailbox",
+            "minVersion": "1.3"
+          }
+        ]
+      },
+      "runtimes": [
+        {
+          "requirements": {
+            "capabilities": [
+              {
+                "name": "Mailbox",
+                "minVersion": "1.10"
+              }
+            ]
+          },
+          "id": "eventsRuntime",
+          "type": "general",
+          "code": {
+            "page": "https://tredasadm.github.io/isign-addin-public/commands.html",
+            "script": "https://tredasadm.github.io/isign-addin-public/commands.js"
+          },
+          "lifetime": "short",
+          "actions": [
+            {
+              "id": "onNewMessageComposeHandler",
+              "type": "executeFunction"
+            }
+          ]
+        },
+        {
+          "requirements": {
+            "capabilities": [
+              {
+                "name": "Mailbox",
+                "minVersion": "1.3"
+              }
+            ]
+          },
+          "id": "taskpaneRuntime",
+          "type": "general",
+          "code": {
+            "page": "https://tredasadm.github.io/isign-addin-public/taskpane.html"
+          },
+          "lifetime": "short",
+          "actions": [
+            {
+              "id": "ShowTaskPane",
+              "type": "openPage",
+              "view": "homepage"
+            }
+          ]
+        }
+      ],
+      "ribbons": [
+        {
+          "contexts": ["mailCompose"],
+          "tabs": [
+            {
+              "builtInTabId": "TabDefault",
+              "groups": [
+                {
+                  "id": "iSignGroup",
+                  "label": "iSign",
+                  "icons": [
+                    { "size": 16, "url": "https://tredasadm.github.io/isign-addin-public/icons/icon-16.png" },
+                    { "size": 32, "url": "https://tredasadm.github.io/isign-addin-public/icons/icon-32.png" },
+                    { "size": 80, "url": "https://tredasadm.github.io/isign-addin-public/icons/icon-80.png" }
+                  ],
+                  "controls": [
+                    {
+                      "id": "InsertSignatureButton",
+                      "type": "button",
+                      "label": "İmzamı Ekle",
+                      "icons": [
+                        { "size": 16, "url": "https://tredasadm.github.io/isign-addin-public/icons/icon-16.png" },
+                        { "size": 32, "url": "https://tredasadm.github.io/isign-addin-public/icons/icon-32.png" },
+                        { "size": 80, "url": "https://tredasadm.github.io/isign-addin-public/icons/icon-80.png" }
+                      ],
+                      "supertip": {
+                        "title": "İmzamı Ekle",
+                        "description": "Kurumsal imzanızı imleç konumuna ekler."
+                      },
+                      "actionId": "ShowTaskPane"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "autoRunEvents": [
+        {
+          "requirements": {
+            "capabilities": [
+              {
+                "name": "Mailbox",
+                "minVersion": "1.10"
+              }
+            ],
+            "scopes": ["mail"]
+          },
+          "events": [
+            {
+              "type": "newMessageComposeCreated",
+              "actionId": "onNewMessageComposeHandler"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
