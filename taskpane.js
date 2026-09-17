@@ -5,6 +5,14 @@ const API_BASE_URL = 'https://isign-api.tredas.com.tr';
 Office.onReady(() => {
   document.getElementById('insertBtn').addEventListener('click', () => insertSignature({ manual: true }));
 
+  // Panel varsayılan olarak gereğinden geniş açılıyor -- içeriğimiz (tek buton + kısa metin)
+  // için dar bir panel yeterli ve daha kullanışlı.
+  try {
+    if (Office.extensionLifeCycle && Office.extensionLifeCycle.taskpane) {
+      Office.extensionLifeCycle.taskpane.setWidth(300);
+    }
+  } catch (e) { /* bu API'yi desteklemeyen eski istemcilerde sessizce gec */ }
+
   // Sabitlenebilir (pinnable) görev bölmesi -- LaunchEvent'ten TAMAMEN BAĞIMSIZ bir otomatik
   // ekleme yolu. Kullanıcı bu paneli bir kez sabitlerse (pin), her yeni yazma penceresinde
   // panel otomatik açık kalır ve Office.EventType.ItemChanged olayı tetiklenir -- biz de o
