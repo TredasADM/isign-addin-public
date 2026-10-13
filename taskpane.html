@@ -9,8 +9,34 @@
     button { background: #2b6cb0; color: #fff; border: none; border-radius: 4px; padding: 10px 16px; font-size: 14px; cursor: pointer; width: 100%; }
     button:disabled { background: #a0aec0; cursor: default; }
     #status { margin-top: 12px; font-size: 13px; color: #4a5568; white-space: pre-wrap; }
-    #pinReminder { margin-top: 14px; padding: 10px 12px; border-radius: 4px; background: #fffbea; border: 1px solid #f0d978; font-size: 12px; line-height: 1.5; color: #6b5300; }
-    #pinReminder b { display: block; margin-bottom: 2px; }
+    #pinReminder {
+      position: relative;
+      margin-top: 22px;
+      padding: 14px 14px 12px;
+      border-radius: 8px;
+      background: #eef5fb;
+      border: 2px dashed #005dab;
+      text-align: center;
+    }
+    #pinReminder h2 { margin: 2px 0 6px; font-size: 13px; font-weight: 600; color: #00447a; }
+    #pinReminder p { margin: 0; font-size: 12px; line-height: 1.5; color: #3c4256; }
+    #pinReminder .note { margin-top: 8px; font-size: 11px; color: #5f6780; }
+    .arrow-pointer {
+      position: absolute;
+      top: -20px;
+      right: 14px;
+      font-size: 20px;
+      line-height: 1;
+      color: #005dab;
+      animation: bounce 1s ease-in-out infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-6px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .arrow-pointer { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -18,10 +44,13 @@
   <button id="insertBtn">İmzamı Ekle</button>
   <div id="status"></div>
   <div id="pinReminder">
-    <b>📌 Bu paneli sabitleyin (pin)</b>
-    Panelin üst köşesindeki pin simgesine tıklarsanız imza her yeni mailde otomatik gelir.
-    Sabitlemeyi kaldırırsanız (unpin) otomatik ekleme durur ve bu butona tekrar manuel
-    basmanız gerekir — sabitlemeyi geri açan bir yol yoktur, bu yüzden kaldırmayın.
+    <span class="arrow-pointer" aria-hidden="true">▲</span>
+    <h2>Otomatik imzayı etkinleştirin</h2>
+    <p>
+      İmzanızın her yeni e-postada otomatik gelmesi için panelin üst kısmındaki
+      <strong>Raptiye (Pin)</strong> simgesine bir kez tıklayın.
+    </p>
+    <div class="note">Tek seferlik bir işlemdir — sabitlemeyi kaldırırsanız bu butona tekrar manuel basmanız gerekir.</div>
   </div>
   <script src="taskpane.js"></script>
 </body>
