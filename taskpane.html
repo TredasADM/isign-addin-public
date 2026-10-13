@@ -9,12 +9,20 @@
     button { background: #2b6cb0; color: #fff; border: none; border-radius: 4px; padding: 10px 16px; font-size: 14px; cursor: pointer; width: 100%; }
     button:disabled { background: #a0aec0; cursor: default; }
     #status { margin-top: 12px; font-size: 13px; color: #4a5568; white-space: pre-wrap; }
+    #pinReminder { margin-top: 14px; padding: 10px 12px; border-radius: 4px; background: #fffbea; border: 1px solid #f0d978; font-size: 12px; line-height: 1.5; color: #6b5300; }
+    #pinReminder b { display: block; margin-bottom: 2px; }
   </style>
 </head>
 <body>
   <p>Kurumsal imzanızı, imlecin bulunduğu konuma ekler.</p>
   <button id="insertBtn">İmzamı Ekle</button>
   <div id="status"></div>
+  <div id="pinReminder">
+    <b>📌 Bu paneli sabitleyin (pin)</b>
+    Panelin üst köşesindeki pin simgesine tıklarsanız imza her yeni mailde otomatik gelir.
+    Sabitlemeyi kaldırırsanız (unpin) otomatik ekleme durur ve bu butona tekrar manuel
+    basmanız gerekir — sabitlemeyi geri açan bir yol yoktur, bu yüzden kaldırmayın.
+  </div>
   <script src="taskpane.js"></script>
 </body>
 </html>
